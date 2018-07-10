@@ -1,4 +1,4 @@
-import maxplank
+import functions
 import utils
 import sys
 
@@ -16,9 +16,9 @@ def doPath(path):
         print "The file "+path+f+" is not allowed in this version"
 
 def doExercice(f):
-    m = maxplank.fileTxt2Matrix(f)
-    r = maxplank.doExercice(m)
-    maxplank.plotMatrix(r)
+    m = functions.fileTxt2Matrix(f)
+    r = functions.doExercice(m)
+    functions.plotMatrix(r)
 
 def printUsageMessage():
     print "Please enter one of the options:"
