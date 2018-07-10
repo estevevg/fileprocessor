@@ -19,8 +19,8 @@ def fileTxt2Matrix(file_path):
 # Prints the matrix
 def plotMatrix(mat):
     plt.plot(mat[:, 0], mat[:, 1])
-    plt.ylabel('Time')
-    plt.xlabel('Ampl')
+    plt.ylabel('Ampl')
+    plt.xlabel('Time')
 
     plt.show()
 

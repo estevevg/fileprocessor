@@ -6,7 +6,7 @@ def doPath(path):
     #Checks if the folder is well formated, if not, it is formated well
     if path[len(path) -1] != '/':
         path = path+'/'
-        
+
     files = utils.getFiles(path)
     for f in files:
         if '.txt' in f:
