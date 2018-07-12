@@ -18,7 +18,7 @@ def doPath(path):
 def doExercice(f):
     m = functions.fileTxt2Matrix(f)
     r = functions.doExercice(m)
-    functions.plotMatrix(r)
+    functions.plotMatrix(r, f)
 
 def printUsageMessage():
     print "Please enter one of the options:"

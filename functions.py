@@ -17,8 +17,9 @@ def fileTxt2Matrix(file_path):
     return np.asmatrix(ret)
 
 # Prints the matrix
-def plotMatrix(mat):
+def plotMatrix(mat, file_name):
     plt.plot(mat[:, 0], mat[:, 1])
+    plt.plot(file_name)
     plt.ylabel('Ampl')
     plt.xlabel('Time')
 
