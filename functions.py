@@ -19,7 +19,7 @@ def fileTxt2Matrix(file_path):
 # Prints the matrix
 def plotMatrix(mat, file_name):
     plt.plot(mat[:, 0], mat[:, 1])
-    plt.plot(file_name)
+    plt.title(file_name)
     plt.ylabel('Ampl')
     plt.xlabel('Time')
 
