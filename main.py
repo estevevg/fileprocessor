@@ -11,6 +11,7 @@ def doPath(path):
     for f in files:
         if '.txt' in f:
             doExercice(path+f)
+            nextGraph()
     else:
         #TODO format .trc files
         print "The file "+path+f+" is not allowed in this version"
@@ -19,6 +20,11 @@ def doExercice(f):
     m = functions.fileTxt2Matrix(f)
     r = functions.doExercice(m)
     functions.plotMatrix(r, f)
+
+def nextGraph():
+    inp = raw_input("Your highness, do you want to continue? Type 'no' if you want to exit: ")
+    if "no" in inp:
+        sys.exit("I hope you enjoy this hummble program")
 
 def printUsageMessage():
     print "Please enter one of the options:"
