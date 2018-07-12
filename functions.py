@@ -29,27 +29,31 @@ def plotMatrix(mat, file_name):
 
 def doExercice(mat):
     res = {}
-    mean = calculMean(mat[:,1], 10)
-    integ = calculIntegral(mat[:,1], mean)
+    mean = calculMean(mat)
+    integ = calculIntegral(mat, mean)
     gaus = calculGaus()
     res['matrix'] = mat
     res['integral'] = integ
     res['mean'] = mean
     return res
 
-def calculMean(arr, lim):
-    if lim > len(arr):
-        lim = len(arr)
-    summ = 0
-    for i in range(lim):
-        summ += arr[i]
-    return summ / lim
+def calculMean(mat):
+    mean = 0
+    it = 0
+    for i in range(len(mat[:,0])):
+        #cond = (float(mat[i,0]) > float(-3*np.exp(-8)))
+        #cond = (float(mat[i, 0]) > float(-1*np.exp(-8)))
+        if (float(mat[i,0]) > float("-3.0e-08")) & (float(mat[i, 0]) < float("-1.0e-08")):
+            mean += mat[i, 1]
+            it += 1
+    return mean / it
 
-def calculIntegral(arr, back):
-    val = 0
-    for a in arr:
-        val += a - back
-    return val
+def calculIntegral(mat, back):
+    #val = 0
+    #for a in mat[:,1]:
+    #    val += float(a) - float(back)
+    #return val
+    return np.trapz(mat[:,1], dx = back)
 
 def calculGaus():
     return []
