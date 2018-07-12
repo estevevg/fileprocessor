@@ -49,11 +49,11 @@ def calculMean(mat):
     return mean / it
 
 def calculIntegral(mat, back):
-    #val = 0
-    #for a in mat[:,1]:
-    #    val += float(a) - float(back)
-    #return val
-    return np.trapz(mat[:,1], dx = back)
+    val = 0
+    for a in mat[:,1]:
+        val += float(a) - float(back)
+    return val
+    #return np.trapz(mat[:,1], dx = back)
 
 def calculGaus():
     return []
