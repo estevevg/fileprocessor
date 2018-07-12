@@ -20,7 +20,7 @@ def fileTxt2Matrix(file_path):
 def plotMatrix(mat, file_name):
     arr = file_name.split("/")
     name = arr[len(arr)-1]
-    plt.plot(mat[:, 0], mat[:, 1])
+    plt.plot(mat['matrix'][:, 0], mat['matrix'][:, 1])
     plt.title(name)
     plt.ylabel('Ampl')
     plt.xlabel('Time')
@@ -28,5 +28,28 @@ def plotMatrix(mat, file_name):
     plt.show()
 
 def doExercice(mat):
-    #TODO do the exercice with the matrix
-    return mat
+    res = {}
+    mean = calculMean(mat[:,1], 10)
+    integ = calculIntegral(mat[:,1], mean)
+    gaus = calculGaus()
+    res['matrix'] = mat
+    res['integral'] = integ
+    res['mean'] = mean
+    return res
+
+def calculMean(arr, lim):
+    if lim > len(arr):
+        lim = len(arr)
+    summ = 0
+    for i in range(lim):
+        summ += arr[i]
+    return summ / lim
+
+def calculIntegral(arr, back):
+    val = 0
+    for a in arr:
+        val += a - back
+    return val
+
+def calculGaus():
+    return []
