@@ -18,8 +18,10 @@ def fileTxt2Matrix(file_path):
 
 # Prints the matrix
 def plotMatrix(mat, file_name):
+    arr = file_name.split("/")
+    name = arr[len(arr)-1]
     plt.plot(mat[:, 0], mat[:, 1])
-    plt.title(file_name)
+    plt.title(name)
     plt.ylabel('Ampl')
     plt.xlabel('Time')
 
