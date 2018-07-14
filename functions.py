@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.optimize import curve_fit
+
 
 # Converts a file.txt from specified data to a matrix
 def fileTxt2Matrix(file_path):
@@ -31,7 +33,7 @@ def doExercice(mat):
     res = {}
     mean = calculMean(mat)
     integ = calculIntegral(mat, mean)
-    gaus = calculGaus()
+    #gaus = calculGaus()
     res['matrix'] = mat
     res['integral'] = integ
     res['mean'] = mean
@@ -48,6 +50,7 @@ def calculMean(mat):
             it += 1
     return mean / it
 
+
 def calculIntegral(mat, back):
     val = 0
     for a in mat[:,1]:
@@ -55,5 +58,25 @@ def calculIntegral(mat, back):
     return val
     #return np.trapz(mat[:,1], dx = back)
 
-def calculGaus():
-    return []
+#def calculGaus():
+
+#def calculHist():
+
+
+def gauss(x, s, m):
+    # s: (sigma) variance      m: (mu) expected value
+    return 1 / (s*np.sqrt(2*np.pi)) * np.exp(-1/2 * ((x-m)/s)**2)
+
+def histogram(means):
+    ma, mi = np.amax(means), np.amin(means)
+    print ma, mi
+    bins = 100
+
+    dif = (ma-mi)/bins
+    ints = np.zeros(bins)
+    for i in xrange(bins):
+        for j in means:
+            if j >= mi + i*dif and j <= mi + (i+1)*dif:
+                ints[i] =+ 1
+    print ints
+    return ints

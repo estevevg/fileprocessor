@@ -2,24 +2,38 @@ import functions
 import utils
 import sys
 
+import numpy as np
+
 def doPath(path):
     #Checks if the folder is well formated, if not, it is formated well
     if path[len(path) -1] != '/':
         path = path+'/'
 
+    means = []
+    integrals = []
     files = utils.getFiles(path)
     for f in files:
         if '.txt' in f:
-            doExercice(path+f)
-            nextGraph()
-    else:
-        #TODO format .trc files
-        print "The file "+path+f+" is not allowed in this version"
+           m =  doExercice(path+f)
+           integrals.append(m["integral"])
+           means.append(m["mean"])
+           #nextGraph()
+        else:
+            #TODO format .trc files
+            print "The file "+path+f+" is not allowed in this version"
+    mhist = functions.histogram(means)
+    ihist = functions.histogram(integrals)
+
+
 
 def doExercice(f):
     m = functions.fileTxt2Matrix(f)
     r = functions.doExercice(m)
-    functions.plotMatrix(r, f)
+    #p = functions.plotMatrix(m)
+
+    return r
+
+#    functions.plotMatrix(r, f)
 
 def nextGraph():
     inp = raw_input("Your highness, do you want to continue? Type 'no' if you want to exit: ")
