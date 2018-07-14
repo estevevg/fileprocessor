@@ -23,6 +23,7 @@ def doPath(path):
             print "The file "+path+f+" is not allowed in this version"
     mhist = functions.histogram(means)
     ihist = functions.histogram(integrals)
+    functions.plotHistogram(means, "Means")
 
 
 

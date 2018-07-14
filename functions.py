@@ -70,13 +70,23 @@ def gauss(x, s, m):
 def histogram(means):
     ma, mi = np.amax(means), np.amin(means)
     print ma, mi
-    bins = 100
+    bins = 500
 
     dif = (ma-mi)/bins
     ints = np.zeros(bins)
     for i in xrange(bins):
         for j in means:
             if j >= mi + i*dif and j <= mi + (i+1)*dif:
-                ints[i] =+ 1
+                ints[i] += 1
     print ints
     return ints
+
+def plotHistogram(m, name):
+    plt.hist(m)
+    plt.title(name)
+    plt.xlabel("Value")
+    plt.ylabel("Frequency")
+
+    fig = plt.gcf()
+
+    #plot_url = py.plot_mpl(fig, filename='mpl-basic-histogram')
