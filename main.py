@@ -11,6 +11,7 @@ def doPath(path):
 
     means = []
     integrals = []
+    maximums = []
     files = utils.getFiles(path)
     for f in files:
         if '.txt' in f:
@@ -20,16 +21,18 @@ def doPath(path):
                functions.plotMatrix(m, f)
                print f
            means.append(m["mean"])
+           maximums.append(m["max"])
            #nextGraph()
         else:
             #TODO format .trc files
             print "The file "+path+f+" is not allowed in this version"
     mhist, ma, mi, bins = functions.histogram(means)
-    covariance = functions.Fitting(mhist, ma, mi, bins)
+    covariance = functions.fitting(mhist, ma, mi, bins)
 
-    ihist, ma, mi, bins = functions.histogram(integrals)
-    functions.plot(ihist, ma, mi, bins)
-    #function.plot90
+    inte = functions.getValidIntegrals(integrals, means, maximums, covariance)
+    if len(inte) > 0:
+        ihist, ma, mi, bins = functions.histogram(inte)
+        functions.plot(ihist, ma, mi, bins)
 
 def doExercice(f):
     m = functions.fileTxt2Matrix(f)

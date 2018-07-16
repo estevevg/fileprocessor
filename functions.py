@@ -29,10 +29,18 @@ def plotMatrix(mat, file_name):
 
     plt.show()
 
+def getValidIntegrals(integrals, means, maximums, covariance):
+    ret = []
+    for i in range(len(integrals)):
+        if (maximums[i] > means[i] + 2*covariance) & (integrals[i] > 0.):
+            ret.append(integrals[i])
+    return ret
+
 def doExercice(mat):
     res = {}
     mean = calculMean(mat)
     integ = calculIntegral(mat, mean)
+    res["max"] = max(mat[:,1])
     #gaus = calculGaus()
     res['matrix'] = mat
     res['integral'] = integ
@@ -55,13 +63,7 @@ def calculIntegral(mat, back):
     val = 0
     for a in mat[:,1]:
         val += float(a) - float(back)
-        #print val
-    #print 'integral: ' + str(val)
-    #print 'nest'
-    #if val < 0.:
-     #   plotMatrix(mat, f)
     return val
-    #return np.trapz(mat[:,1], dx = back)
 
 def histogram(means):
     ma, mi = np.amax(means), np.amin(means)
@@ -79,15 +81,14 @@ def histogram(means):
     #plots the histogram
     plt.hist(means, bins, alpha= 0.3)
     fig = plt.gcf()
-     
+
     return ints, ma, mi, bins
 
-def Fitting(y, ma, mi, bins):
-    
+def fitting(y, ma, mi, bins):
+
     xx = np.linspace(mi, ma, bins)
- 
+
     popt, pcov = curve_fit (gauss, xx, y, p0 = [80,  -0.0001, 0.0002])
-    
 
     plt.plot(xx, y, 'go')
     plt.plot(xx, gauss(xx, *popt), 'r-')
@@ -97,15 +98,15 @@ def Fitting(y, ma, mi, bins):
 
     plt.show()
 
-    print 'Optimized parametres: height: ' + str(popt[0]) 
-    print 'Central position: ' + str(popt[1])  
+    print 'Optimized parametres: height: ' + str(popt[0])
+    print 'Central position: ' + str(popt[1])
     print 'Width / variance: ' + str(popt[2])
 
     return popt[2]
 
-def gauss(x, a, b, c): 
-    # a: height      b: centre       c: width   
-    return  a * np.exp(-1*(x-b)**2/(2 * c**2)) 
+def gauss(x, a, b, c):
+    # a: height      b: centre       c: width
+    return  a * np.exp(-1*(x-b)**2/(2 * c**2))
 
 def plot(y, ma, mi, bins):
     #print y
