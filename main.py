@@ -16,16 +16,20 @@ def doPath(path):
         if '.txt' in f:
            m =  doExercice(path+f)
            integrals.append(m["integral"])
+           if m['integral'] < 0.:
+               functions.plotMatrix(m, f)
+               print f
            means.append(m["mean"])
            #nextGraph()
         else:
             #TODO format .trc files
             print "The file "+path+f+" is not allowed in this version"
-    mhist = functions.histogram(means)
-    ihist = functions.histogram(integrals)
-    functions.plotHistogram(means, "Means")
+    mhist, ma, mi, bins = functions.histogram(means)
+    covariance = functions.Fitting(mhist, ma, mi, bins)
 
-
+    ihist, ma, mi, bins = functions.histogram(integrals)
+    functions.plot(ihist, ma, mi, bins)
+    #function.plot90
 
 def doExercice(f):
     m = functions.fileTxt2Matrix(f)
@@ -34,10 +38,10 @@ def doExercice(f):
 
     return r
 
-#    functions.plotMatrix(r, f)
+
 
 def nextGraph():
-    inp = raw_input("Your highness, do you want to continue? Type 'no' if you want to exit: ")
+    inp = raw_input("do you want to continue? Type 'no' if you want to exit: ")
     if "no" in inp:
         sys.exit("I hope you enjoy this hummble program")
 
@@ -55,7 +59,8 @@ def main():
     elif len(sys.argv) == 2:
         doPath(sys.argv[1])
     elif len(sys.argv) == 3:
-        doExercice(sys.argv[2])
+        m = doExercice(sys.argv[2])
+        functions.plotMatrix(m, sys.argv[2])
     else:
         printUsageMessage()
 

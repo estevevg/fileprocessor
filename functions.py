@@ -55,22 +55,18 @@ def calculIntegral(mat, back):
     val = 0
     for a in mat[:,1]:
         val += float(a) - float(back)
+        #print val
+    #print 'integral: ' + str(val)
+    #print 'nest'
+    #if val < 0.:
+     #   plotMatrix(mat, f)
     return val
     #return np.trapz(mat[:,1], dx = back)
-
-#def calculGaus():
-
-#def calculHist():
-
-
-def gauss(x, s, m):
-    # s: (sigma) variance      m: (mu) expected value
-    return 1 / (s*np.sqrt(2*np.pi)) * np.exp(-1/2 * ((x-m)/s)**2)
 
 def histogram(means):
     ma, mi = np.amax(means), np.amin(means)
     print ma, mi
-    bins = 500
+    bins =50
 
     dif = (ma-mi)/bins
     ints = np.zeros(bins)
@@ -78,15 +74,45 @@ def histogram(means):
         for j in means:
             if j >= mi + i*dif and j <= mi + (i+1)*dif:
                 ints[i] += 1
-    print ints
-    return ints
 
-def plotHistogram(m, name):
-    plt.hist(m)
-    plt.title(name)
-    plt.xlabel("Value")
-    plt.ylabel("Frequency")
-
+    #print ints #just to show the distribution of the bins
+    #plots the histogram
+    plt.hist(means, bins, alpha= 0.3)
     fig = plt.gcf()
+     
+    return ints, ma, mi, bins
 
-    #plot_url = py.plot_mpl(fig, filename='mpl-basic-histogram')
+def Fitting(y, ma, mi, bins):
+    
+    xx = np.linspace(mi, ma, bins)
+ 
+    popt, pcov = curve_fit (gauss, xx, y, p0 = [80,  -0.0001, 0.0002])
+    
+
+    plt.plot(xx, y, 'go')
+    plt.plot(xx, gauss(xx, *popt), 'r-')
+    plt.title('Baselines distribution')
+    plt.ylabel('Frequency')
+    plt.xlabel('value')
+
+    plt.show()
+
+    print 'Optimized parametres: height: ' + str(popt[0]) 
+    print 'Central position: ' + str(popt[1])  
+    print 'Width / variance: ' + str(popt[2])
+
+    return popt[2]
+
+def gauss(x, a, b, c): 
+    # a: height      b: centre       c: width   
+    return  a * np.exp(-1*(x-b)**2/(2 * c**2)) 
+
+def plot(y, ma, mi, bins):
+    #print y
+    xx = np.linspace(mi, ma, bins)
+    print y, xx
+    plt.plot(xx, y, 'ro')
+    plt.title('Integral distribution')
+    plt.ylabel('frequency ')
+    plt.xlabel('integral')
+    plt.show()

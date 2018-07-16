@@ -1,6 +1,9 @@
 # Files processor
 Small project to process a set of files with an specific format and print the output
 
+## Non github colaborators
+ - Maria Guitart: mguitartcorominas@gmail.com
+
 ## Usage
 
 Process a folder of files
